@@ -21,7 +21,7 @@ class Utilities
     
 // Optain clientID and secret key from https://developer.foursquare.com
     static let fourSquareClientID = "A"
-    static let fourSquareSecret = "A"
+    static let fourSquareSecret = "B"
     
     static func getDateString() -> String
     {
