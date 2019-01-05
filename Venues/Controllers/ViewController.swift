@@ -51,6 +51,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
         self.textfieldButtonConstraints.constant = UIScreen.main.bounds.width/2
         self.searchField.sizeToFit()
         self.searchField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        self.hideKeyboard()
         
         //TODO: Setting delegates and datasource
         self.locationManager.delegate = self
@@ -212,4 +213,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
 protocol UpdateParameters {
     var filter:Bool {get set}
     var categoryID:String {get set}
+}
+
+//TODO: Hide keyboard when touched away from it.
+extension ViewController {
+    func hideKeyboard()
+    {
+        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
