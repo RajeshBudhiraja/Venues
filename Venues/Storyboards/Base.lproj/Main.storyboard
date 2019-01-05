@@ -51,6 +51,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOQ-TD-wFc" customClass="CircleMenu" customModule="CircleMenu">
                                         <rect key="frame" x="162.5" y="537" width="50" height="50"/>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="q6a-g6-m2w"/>
                                             <constraint firstAttribute="height" constant="50" id="y5b-at-LmH"/>

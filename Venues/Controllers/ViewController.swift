@@ -15,6 +15,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
     //MARK: Variables
     var selectedIndex = 0
     var categoryDelegate:UpdateParameters?
+    let locationManager = CLLocationManager()
+    let dataManager = DataManager()
+    var lattitude:String = ""
+    var longitude:String = ""
+    var mapDelegate:MapDelegate?
+    var currentLocation:CLLocation?
     
     //MARK: DataManager Protocol
     var venueData: [VenueResponse] = [VenueResponse]()
@@ -26,14 +32,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
         present(Utilities.alert(title: "Connection issue.", message: "Please check your connection."), animated: true)
     }
 
-    //MARK: Varibles
-    let locationManager = CLLocationManager()
-    let dataManager = DataManager()
-    var lattitude:String = ""
-    var longitude:String = ""
-    var mapDelegate:MapDelegate?
-    var currentLocation:CLLocation?
-    
+  
     //MARK: IBOutlets.
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var venueList: UITableView!
@@ -43,10 +42,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
     //MARK: Constraints
     @IBOutlet weak var textfieldButtonConstraints: NSLayoutConstraint!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         //TODO: Settings for textfield
         self.searchField.layer.borderColor = UIColor.white.cgColor
         self.searchField.borderStyle = .roundedRect
@@ -75,6 +73,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
         //TODO: Setting title for navigation bar.
         self.navigationController?.navigationBar.topItem?.title = "Welcome"
         
+        //TODO: Making button cicrular
+        self.categoriesButton.layer.cornerRadius = 0.5 * self.categoriesButton.bounds.size.width
                 
     }
     
@@ -90,6 +90,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
             self.lattitude = "\(location.coordinate.latitude)"
             self.longitude = "\(location.coordinate.longitude)"
             self.currentLocation = location
+            
+            //TODO: Doing initial search as soon as location is identified.
+            perform(#selector(textDidChange))
         }
     }
     
@@ -171,26 +174,32 @@ class ViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDele
             self.categoriesButton.setBackgroundImage(UIImage(named: "menu"), for: .normal)
             self.categoryDelegate?.filter = false
             self.categoryDelegate?.categoryID = Utilities.categoriesDict[atIndex].categoryID
+            perform(#selector(textDidChange))
         case "food":
             self.categoriesButton.setBackgroundImage(UIImage(named: "food"), for: .normal)
             self.categoryDelegate?.filter = true
             self.categoryDelegate?.categoryID = Utilities.categoriesDict[atIndex].categoryID
+            perform(#selector(textDidChange))
         case "entertainment":
             self.categoriesButton.setBackgroundImage(UIImage(named: "entertainment"), for: .normal)
             self.categoryDelegate?.filter = true
             self.categoryDelegate?.categoryID = Utilities.categoriesDict[atIndex].categoryID
+            perform(#selector(textDidChange))
         case "nightlife":
             self.categoriesButton.setBackgroundImage(UIImage(named: "nightlife"), for: .normal)
             self.categoryDelegate?.filter = true
             self.categoryDelegate?.categoryID = Utilities.categoriesDict[atIndex].categoryID
+            perform(#selector(textDidChange))
         case "outdoor":
             self.categoriesButton.setBackgroundImage(UIImage(named: "outdoor"), for: .normal)
             self.categoryDelegate?.filter = true
             self.categoryDelegate?.categoryID = Utilities.categoriesDict[atIndex].categoryID
+            perform(#selector(textDidChange))
         case "shopping":
             self.categoriesButton.setBackgroundImage(UIImage(named: "shopping"), for: .normal)
             self.categoryDelegate?.filter = true
             self.categoryDelegate?.categoryID = Utilities.categoriesDict[atIndex].categoryID
+            perform(#selector(textDidChange))
         default:
             print("No Option Possible")
         }
